@@ -5,15 +5,19 @@ import Main from './components/Main'
 import uuid from 'react-uuid'
 
 function App() {
-  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("notes"))||[]);
-  const [activeNote, setActiveNote] = useState(false);
+  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("notes")) || []);
+  const [activeNote, setActiveNote] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes));
-  },[notes]);
+ 
+      localStorage.setItem("notes", JSON.stringify(notes));
+    
+  }, [notes]);
 
   useEffect(() => {
-     setActiveNote(notes[0].id);
+    if (notes.length > 0) {
+    setActiveNote(notes[0].id);
+    }
   }, []);
 
 
@@ -58,7 +62,7 @@ function App() {
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote}/>
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
 
     </div>
   )
